@@ -37,7 +37,7 @@ public class Bush {
         this.y = y;
     }
 
-    public static void drawBush(Graphics2D g, int x, int y, int r) {
+    public void draw(Graphics2D g) {
             g.setPaint(Color.decode("#7c7b5f"));
             g.fillOval(x,y,2 * r, 2 * r);
             g.fillOval(x + 100,y + 25,2 * r, 2 * r);

@@ -46,9 +46,8 @@ public class Moon {
         this.x = x;
         this.y = y;
     }
-    //drawMoon((Graphics2D)g,700,100,50,Color.decode("#aaaa9f"));
 
-    public static void drawMoon(Graphics2D g, int x, int y, int r, Color c) {
+    public void draw(Graphics2D g) {
         g.setPaint(c);
         g.fillOval(x,y,2 * r, 2 * r);
     }

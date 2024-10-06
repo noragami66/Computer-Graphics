@@ -1,7 +1,6 @@
 package ru.vsu.cs.kodintsev.elements.background;
 
 import java.awt.*;
-import java.util.List;
 import java.util.Random;
 
 public class Star {
@@ -9,7 +8,6 @@ public class Star {
     private int sY;
     private Color c;
     private static final Random rnd = new Random();
-
 
     public Color getC() {
         return c;
@@ -46,15 +44,9 @@ public class Star {
         this.c = new Color(brightness, brightness, brightness);
     }
 
-    public static void drawStar(Graphics2D g, int sX, int sY, Color c) {
+    public void draw(Graphics2D g) {
         g.setPaint(c);
         g.drawLine(sX, sY + 10, sX + 20, sY + 10);
         g.drawLine(sX + 10, sY, sX + 10, sY + 20);
-    }
-
-    public static void drawStars(Graphics2D g, List<Star> stars) {
-        for (Star star : stars) {
-            drawStar(g, star.getsX(), star.getsY(), star.getC());
-        }
     }
 }

@@ -6,6 +6,8 @@ public class Background {
     private int width;
     private int height;
     private Color c;
+    private Color c2;
+
 
     public int getWidth() {
         return width;
@@ -31,14 +33,15 @@ public class Background {
         this.c = c;
     }
 
-    public Background(int width, int height, Color c) {
+    public Background(int width, int height, Color c, Color c2) {
         this.width = width;
         this.height = height;
         this.c = c;
+        this.c2 = c2;
     }
 
-    public static void drawBackground(Graphics2D g,int width, int height, Color c1, Color c2) {
-        g.setPaint(c1);
+    public void draw(Graphics2D g) {
+        g.setPaint(c);
         g.fillRect(0,0,width,height);
         g.setPaint(c2);
         g.fillRect(0,(int)(height / 1.65),width,(int)(height / 1.65));
