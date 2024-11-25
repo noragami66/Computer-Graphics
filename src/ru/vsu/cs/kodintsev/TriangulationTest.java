@@ -7,7 +7,7 @@ public class TriangulationTest {
 
     @Test
     public void testTriangulation() {
-        Model model = new Model();
+        ModelOld model = new ModelOld();
         model.addVertex(0, 0, 0);
         model.addVertex(1, 0, 0);
         model.addVertex(1, 1, 0);
@@ -20,7 +20,7 @@ public class TriangulationTest {
 
     @Test
     public void testEmptyModel() {
-        Model model = new Model();
+        ModelOld model = new ModelOld();
         TriangulatedModel triangulatedModel = new TriangulatedModel(model);
 
         Assertions.assertTrue(triangulatedModel.getVertices().isEmpty());
@@ -29,7 +29,7 @@ public class TriangulationTest {
 
     @Test
     public void testSingleTriangle() {
-        Model model = new Model();
+        ModelOld model = new ModelOld();
         model.addVertex(0, 0, 0);
         model.addVertex(1, 0, 0);
         model.addVertex(0, 1, 0);
@@ -43,7 +43,7 @@ public class TriangulationTest {
 
     @Test
     public void testPentagon() {
-        Model model = new Model();
+        ModelOld model = new ModelOld();
         model.addVertex(0, 0, 0);
         model.addVertex(1, 0, 0);
         model.addVertex(1, 1, 0);
@@ -58,7 +58,7 @@ public class TriangulationTest {
 
     @Test
     public void testVertexCoordinates() {
-        Model model = new Model();
+        ModelOld model = new ModelOld();
         model.addVertex(0, 0, 0);
         model.addVertex(1, 0, 0);
         model.addVertex(1, 1, 0);
@@ -71,17 +71,45 @@ public class TriangulationTest {
     }
 
     @Test
-    public void testFaceIndices() {
-        Model model = new Model();
-        model.addVertex(0, 0, 0);
-        model.addVertex(1, 0, 0);
-        model.addVertex(1, 1, 0);
-        model.addVertex(0, 1, 0);
-        model.addFace(new int[]{0, 1, 2, 3});
+    public void testNonConvexPolygon() {
+        ModelOld model = new ModelOld();
+        model.addVertex(0.0f, 0.0f, 0.0f); // 0
+        model.addVertex(0.0f, 1.0f, 0.0f); // 1
+        model.addVertex(1.0f, 1.0f, 0.0f); // 2
+        model.addVertex(1.0f, 0.0f, 0.0f); // 3
+        model.addVertex(0.8f, 0.0f, 0.0f); // 4
+        model.addVertex(0.8f, 0.6f, 0.0f); // 5
+        model.addVertex(0.2f, 0.6f, 0.0f); // 6
+        model.addVertex(0.2f, 0.0f, 0.0f); // 7
+
+        model.addFace(new int[]{0, 7, 6});
+        model.addFace(new int[]{5, 4, 3});
+        model.addFace(new int[]{5, 3, 2});
+        model.addFace(new int[]{6, 5, 2});
+        model.addFace(new int[]{6, 2, 1});
+        model.addFace(new int[]{6, 1, 0});
 
         TriangulatedModel triangulatedModel = new TriangulatedModel(model);
 
-        Assertions.assertArrayEquals(new int[]{0, 1, 2}, triangulatedModel.getFaces().get(0));
-        Assertions.assertArrayEquals(new int[]{0, 2, 3}, triangulatedModel.getFaces().get(1));
+        Assertions.assertEquals(6, triangulatedModel.getFaces().size());
+
+        Assertions.assertArrayEquals(new int[]{0, 7, 6}, triangulatedModel.getFaces().get(0));
+        Assertions.assertArrayEquals(new int[]{5, 4, 3}, triangulatedModel.getFaces().get(1));
+        Assertions.assertArrayEquals(new int[]{5, 3, 2}, triangulatedModel.getFaces().get(2));
+        Assertions.assertArrayEquals(new int[]{6, 5, 2}, triangulatedModel.getFaces().get(3));
+        Assertions.assertArrayEquals(new int[]{6, 2, 1}, triangulatedModel.getFaces().get(4));
+        Assertions.assertArrayEquals(new int[]{6, 1, 0}, triangulatedModel.getFaces().get(5));
+    }
+
+    @Test
+    public void testConvexTriangle() {
+        ModelOld model = new ModelOld();
+        model.addVertex(0, 0, 0);
+        model.addVertex(1, 0, 0);
+        model.addVertex(0, 1, 0);
+
+        TriangulatedModel triangulatedModel = new TriangulatedModel(model);
+
+        Assertions.assertTrue(triangulatedModel.isConvex(0, 1, 2));
     }
 }

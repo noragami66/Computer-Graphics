@@ -5,8 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class ObjReader {
-    public static Model read(String filePath) throws IOException {
-        Model model = new Model();
+    public static ModelOld read(String filePath) throws IOException {
+        ModelOld model = new ModelOld();
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
         String line;
 

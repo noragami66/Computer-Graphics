@@ -3,11 +3,11 @@ package ru.vsu.cs.kodintsev;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Model {
+public class ModelOld {
     protected List<float[]> vertices;
     protected List<int[]> faces;
 
-    public Model() {
+    public ModelOld() {
         this.vertices = new ArrayList<>();
         this.faces = new ArrayList<>();
     }

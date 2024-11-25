@@ -1,7 +1,6 @@
 package ru.vsu.cs.kodintsev;
 
 import javax.swing.*;
-import java.io.File;
 import java.io.IOException;
 
 public class TriangulationApp {
@@ -18,7 +17,7 @@ public class TriangulationApp {
             }
             String inputPath = fileChooser.getSelectedFile().getAbsolutePath();
 
-            Model model = ObjReader.read(inputPath);
+            ModelOld model = ObjReader.read(inputPath);
 
             TriangulatedModel triangulatedModel = new TriangulatedModel(model);
 
